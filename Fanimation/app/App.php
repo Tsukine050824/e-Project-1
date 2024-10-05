@@ -10,7 +10,7 @@ if (!function_exists('str_ends_with')) {
 
 class App {
     public function handleRequest() {
-        $controllerName = isset($_GET['controller']) ? $_GET['controller'] : 'ProductController'; // Default to ProductController
+        $controllerName = isset($_GET['controller']) ? $_GET['controller'] : 'ProductController'; 
         $actionName = isset($_GET['action']) ? $_GET['action'] : 'index';
 
         if (!str_ends_with($controllerName, 'Controller')) {
