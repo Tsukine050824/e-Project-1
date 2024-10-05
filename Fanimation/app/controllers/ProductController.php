@@ -44,7 +44,7 @@ class ProductController {
             // Handle image upload
             $image = $this->handleImageUpload();
             if (!$image) {
-                $image = $product['image']; // Keep the old image if no new image is uploaded
+                $image = $product['image']; 
             }
 
             $productModel->updateProduct($id, $name, $description, $price, $stock, $category_id, $size_id, $image);
@@ -67,19 +67,19 @@ class ProductController {
             $targetDir = "app/uploads/";
             $targetFile = $targetDir . basename($_FILES["image"]["name"]);
 
-            // Check if the file already exists
+        
             if (file_exists($targetFile)) {
                 throw new Exception("File already exists. Please rename the file and try again.");
             }
 
-            // Attempt to move the uploaded file
+            
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
                 return basename($_FILES["image"]["name"]);
             } else {
                 throw new Exception("Error uploading the image. Please try again.");
             }
         } else {
-            // Handle errors
+            
             if (isset($_FILES['image']['error'])) {
                 switch ($_FILES['image']['error']) {
                     case UPLOAD_ERR_INI_SIZE:
@@ -94,7 +94,7 @@ class ProductController {
                         throw new Exception("Unknown upload error.");
                 }
             }
-            return null; // Return null if no image was uploaded
+            return null; 
         }
     }
 }
