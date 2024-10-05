@@ -1,33 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Create Product</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
 </head>
 <body>
-<h1>Create Product</h1>
-<form method="post" enctype="multipart/form-data">
-    <label for="name">Name:</label>
-    <input type="text" name="name" required>
-    <br>
-    <label for="description">Description:</label>
-    <textarea name="description" required></textarea>
-    <br>
-    <label for="price">Price:</label>
-    <input type="number" name="price" step="0.01" required>
-    <br>
-    <label for="stock">Stock:</label>
-    <input type="number" name="stock" required>
-    <br>
-    <label for="category_id">Category ID:</label>
-    <input type="number" name="category_id" required>
-    <br>
-    <label for="size_id">Size ID:</label>
-    <input type="number" name="size_id" required>
-    <br>
-    <label for="image">Image:</label>
+<h1>Add New Product</h1>
+<form action="index.php?controller=ProductController&action=create" method="post" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Product Name" required>
+    <input type="text" name="description" placeholder="Description" required>
+    <input type="number" name="price" placeholder="Price" required>
+    <input type="number" name="stock" placeholder="Stock" required>
+    <input type="number" name="category_id" placeholder="Category ID" required>
+    <input type="number" name="size_id" placeholder="Size ID" required>
     <input type="file" name="image" required>
-    <br>
-    <input type="submit" value="Create Product">
+    <button type="submit">Add Product</button>
 </form>
+<a href="index.php?controller=ProductController&action=index">Back to Product List</a>
 </body>
 </html>
