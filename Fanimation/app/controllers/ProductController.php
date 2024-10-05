@@ -10,21 +10,32 @@ class ProductController {
 
     public function create() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'];
-            $description = $_POST['description'];
+            $name = trim($_POST['name']);
+            $description = trim($_POST['description']);
             $price = $_POST['price'];
             $stock = $_POST['stock'];
             $category_id = $_POST['category_id'];
             $size_id = $_POST['size_id'];
 
+            if (empty($name) || empty($description) || empty($price) || empty($stock) || empty($category_id) || empty($size_id)) {
+                echo "All fields are required!";
+                return;
+            }
+
             // Handle image upload
             $image = $this->handleImageUpload();
+            if (!$image) {
+                echo "Image upload failed!";
+                return;
+            }
 
             $productModel = new ProductModel();
-            $productModel->createProduct($name, $description, $price, $stock, $category_id, $size_id, $image);
-
-            header('Location: index.php?controller=ProductController&action=index');
-            exit;
+            if ($productModel->createProduct($name, $description, $price, $stock, $category_id, $size_id, $image)) {
+                header('Location: index.php?controller=ProductController&action=index');
+                exit;
+            } else {
+                echo "Failed to add product.";
+            }
         }
         require_once 'app/views/product/create.php';
     }
@@ -41,14 +52,12 @@ class ProductController {
             $category_id = $_POST['category_id'];
             $size_id = $_POST['size_id'];
 
-            // Handle image upload
             $image = $this->handleImageUpload();
             if (!$image) {
-                $image = $product['image']; 
+                $image = $product['image'];
             }
 
             $productModel->updateProduct($id, $name, $description, $price, $stock, $category_id, $size_id, $image);
-
             header('Location: index.php?controller=ProductController&action=index');
             exit;
         }
@@ -65,21 +74,28 @@ class ProductController {
     private function handleImageUpload() {
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $targetDir = "app/uploads/";
-            $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+            $originalFileName = basename($_FILES["image"]["name"]);
+            $targetFile = $targetDir . $originalFileName;
 
-        
-            if (file_exists($targetFile)) {
-                throw new Exception("File already exists. Please rename the file and try again.");
+            // Check if the file already exists and rename it if it does
+            $fileExtension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+            $fileNameWithoutExt = pathinfo($originalFileName, PATHINFO_FILENAME);
+            $counter = 1;
+
+            while (file_exists($targetFile)) {
+                $newFileName = $fileNameWithoutExt . "_" . $counter . "." . $fileExtension;
+                $targetFile = $targetDir . $newFileName;
+                $counter++;
             }
 
-            
+            // Attempt to move the uploaded file
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-                return basename($_FILES["image"]["name"]);
+                return basename($targetFile); // Return the new file name
             } else {
                 throw new Exception("Error uploading the image. Please try again.");
             }
         } else {
-            
+            // Handle errors as before
             if (isset($_FILES['image']['error'])) {
                 switch ($_FILES['image']['error']) {
                     case UPLOAD_ERR_INI_SIZE:
@@ -94,8 +110,9 @@ class ProductController {
                         throw new Exception("Unknown upload error.");
                 }
             }
-            return null; 
+            return null;
         }
     }
+
 }
 ?>
