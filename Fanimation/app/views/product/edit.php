@@ -4,25 +4,32 @@
     <title>Edit Product</title>
 </head>
 <body>
-<?php include 'app/views/layout/header.php'; ?>
 <h1>Edit Product</h1>
-<form method="post" action="index.php?controller=ProductController&action=edit&id=<?= $product['id'] ?>">
+<form method="post" enctype="multipart/form-data">
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="<?= $product['name'] ?>" required><br><br>
+    <input type="text" name="name" value="<?= htmlspecialchars($product['name']) ?>" required>
+    <br>
     <label for="description">Description:</label>
-    <textarea id="description" name="description" required><?= $product['description'] ?></textarea><br><br>
+    <textarea name="description" required><?= htmlspecialchars($product['description']) ?></textarea>
+    <br>
     <label for="price">Price:</label>
-    <input type="number" step="0.01" id="price" name="price" value="<?= $product['price'] ?>" required><br><br>
+    <input type="number" name="price" step="0.01" value="<?= htmlspecialchars($product['price']) ?>" required>
+    <br>
     <label for="stock">Stock:</label>
-    <input type="number" id="stock" name="stock" value="<?= $product['stock'] ?>" required><br><br>
+    <input type="number" name="stock" value="<?= htmlspecialchars($product['stock']) ?>" required>
+    <br>
     <label for="category_id">Category ID:</label>
-    <input type="number" id="category_id" name="category_id" value="<?= $product['category_id'] ?>" required><br><br>
+    <input type="number" name="category_id" value="<?= htmlspecialchars($product['category_id']) ?>" required>
+    <br>
     <label for="size_id">Size ID:</label>
-    <input type="number" id="size_id" name="size_id" value="<?= $product['size_id'] ?>" required><br><br>
+    <input type="number" name="size_id" value="<?= htmlspecialchars($product['size_id']) ?>" required>
+    <br>
     <label for="image">Image:</label>
-    <input type="text" id="image" name="image" value="<?= $product['image'] ?>" required><br><br>
-    <button type="submit">Update</button>
+    <input type="file" name="image">
+    <br>
+    <img src="app/uploads/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" width="100" />
+    <br>
+    <input type="submit" value="Update Product">
 </form>
-<?php include 'app/views/layout/footer.php'; ?>
 </body>
 </html>

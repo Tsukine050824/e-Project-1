@@ -9,5 +9,5 @@
     <a href="index.php?controller=OrderController&action=index">Orders</a>
     <a href="index.php?controller=UserController&action=index">Users</a>
     <a href="index.php?controller=SizeController&action=index">Sizes</a>
-    <a href="index.php?controller=VariationController&action=index">Variations</a>
+    <a href="index.php?controller=CategoryController&action=index">Category</a>
 </nav>

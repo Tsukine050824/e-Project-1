@@ -9,7 +9,6 @@
 <a href="index.php?controller=ProductController&action=create">Create New Product</a>
 <table border="1">
     <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
@@ -19,22 +18,29 @@
         <th>Image</th>
         <th>Actions</th>
     </tr>
-    <?php foreach ($products as $product): ?>
+    <?php if (!empty($products)): ?>
+        <?php foreach ($products as $product): ?>
+            <tr>
+                <td><?= htmlspecialchars($product['name']) ?></td>
+                <td><?= htmlspecialchars($product['description']) ?></td>
+                <td><?= htmlspecialchars($product['price']) ?></td>
+                <td><?= htmlspecialchars($product['stock']) ?></td>
+                <td><?= htmlspecialchars($product['category_id']) ?></td>
+                <td><?= htmlspecialchars($product['size_id']) ?></td>
+                <td>
+                    <img src="app/uploads/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" width="100" />
+                </td>
+                <td>
+                    <a href="index.php?controller=ProductController&action=edit&id=<?= $product['id'] ?>">Edit</a>
+                    <a href="index.php?controller=ProductController&action=delete&id=<?= $product['id'] ?>">Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
         <tr>
-            <td><?= $product['id'] ?></td>
-            <td><?= $product['name'] ?></td>
-            <td><?= $product['description'] ?></td>
-            <td><?= $product['price'] ?></td>
-            <td><?= $product['stock'] ?></td>
-            <td><?= $product['category_id'] ?></td>
-            <td><?= $product['size_id'] ?></td>
-            <td><?= $product['image'] ?></td>
-            <td>
-                <a href="index.php?controller=ProductController&action=edit&id=<?= $product['id'] ?>">Edit</a>
-                <a href="index.php?controller=ProductController&action=delete&id=<?= $product['id'] ?>">Delete</a>
-            </td>
+            <td colspan="8">No products found.</td>
         </tr>
-    <?php endforeach; ?>
+    <?php endif; ?>
 </table>
 <?php include 'app/views/layout/footer.php'; ?>
 </body>

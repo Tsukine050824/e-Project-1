@@ -7,7 +7,6 @@ foreach (glob("app/controllers/*.php") as $controller) {
     require_once $controller;
 }
 
-
 $app = new App();
 $app->handleRequest();
 ?>
