@@ -9,18 +9,18 @@ class ProductModel {
 
     public function getAllProducts() {
         $stmt = $this->conn->query('SELECT * FROM products');
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getProductById($id) {
         $stmt = $this->conn->prepare('SELECT * FROM products WHERE id = :id');
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function createProduct($name, $description, $price, $stock, $category_id, $size_id, $image) {
         $stmt = $this->conn->prepare('INSERT INTO products (name, description, price, stock, category_id, size_id, image) VALUES (:name, :description, :price, :stock, :category_id, :size_id, :image)');
-        return $stmt->execute([
+        if ($stmt->execute([
             'name' => $name,
             'description' => $description,
             'price' => $price,
@@ -28,7 +28,12 @@ class ProductModel {
             'category_id' => $category_id,
             'size_id' => $size_id,
             'image' => $image
-        ]);
+        ])) {
+            return true;
+        } else {
+            echo "Error in SQL execution: " . implode(", ", $stmt->errorInfo()); // Debug output
+            return false; // Failure
+        }
     }
 
     public function updateProduct($id, $name, $description, $price, $stock, $category_id, $size_id, $image) {

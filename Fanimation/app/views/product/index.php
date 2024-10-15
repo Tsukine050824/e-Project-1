@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,7 @@
 <a href="index.php?controller=ProductController&action=create">Create New Product</a>
 <table border="1">
     <tr>
+        <th>ID</th>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
@@ -21,6 +23,7 @@
     <?php if (!empty($products)): ?>
         <?php foreach ($products as $product): ?>
             <tr>
+                <td><?php echo htmlspecialchars($product['id']); ?></td>
                 <td><?= htmlspecialchars($product['name']) ?></td>
                 <td><?= htmlspecialchars($product['description']) ?></td>
                 <td><?= htmlspecialchars($product['price']) ?></td>
