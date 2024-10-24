@@ -1,0 +1,80 @@
+/* Set the page background to white and center form */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fff; /* White background */
+    display: flex;
+    justify-content: center; /* Center form horizontally */
+    align-items: center; /* Center form vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    background-image: url(background.png);
+}
+
+/* Move the heading inside the form and style it */
+form h2 {
+    color: #fff; /* White text color for better contrast */
+    text-align: center;
+    margin-bottom: 20px; /* Space between heading and form elements */
+}
+
+/* Style for the form */
+form {
+    background-color: #354B59; /* Dark blue-gray form background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Light shadow */
+    width: 300px;
+    text-align: left;
+}
+
+/* Style for form labels */
+label {
+    color: #fff; /* White text for labels */
+    font-weight: bold;
+    margin-bottom: 5px; /* Reduced space between label and input */
+    display: block; /* Block display to stack the labels above the inputs */
+    text-align: left; /* Align labels to the left */
+}
+
+/* Style for input fields */
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    margin-bottom: 5px; /* Further reduce space between the input fields */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%; /* Full width of the form */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    display: block; /* Make inputs block elements */
+}
+
+/* Style for the submit button */
+button {
+    padding: 10px 20px;
+    background-color: #61859b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Full-width button */
+}
+
+/* Change button background color on hover */
+button:hover {
+    background-color: #35506d;
+}
+
+/* Style for the sign-in link */
+.sign-in-link {
+    display: block; /* Make it a block element */
+    margin-top: 15px; /* Space above the link */
+    text-align: center; /* Center text */
+    color: #ffffff; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 14px; /* Font size */
+    margin-bottom: 10px;
+}
+
+/* Change link color on hover */
+.sign-in-link:hover {
+    text-decoration: underline; /* Underline on hover */
+}
